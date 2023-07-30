@@ -1,0 +1,23 @@
+version: '3'
+services:
+  postage_plot:
+    build:
+      context: .
+    image: postage_plot
+    container_name: postage_plot
+    tty: true
+    volumes:
+      - ./src:${VOLUMES:-/app/src}
+    working_dir: ${WORK_DIR:-/app/src}
+    environment:
+      PYTHONPATH: ${PYTHONPATH:-/app/src}
+      TZ: Asia/Tokyo
+    ports:
+      - ${HOST_PORT:-8501}:${DOCKER_PORT:-8501}
+    networks:
+      - shared-nw
+    command: streamlit run main.py --server.port=${DOCKER_PORT:-8501} --browser.gatherUsageStats=false --server.enableWebsocketCompression=false --server.enableXsrfProtection=false
+
+networks:
+  shared-nw:
+    external: true

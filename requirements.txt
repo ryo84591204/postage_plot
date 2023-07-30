@@ -1,0 +1,5 @@
+chardet
+pandas == 2.0.3
+plotly
+streamlit == 1.22.0
+python-dotenv
